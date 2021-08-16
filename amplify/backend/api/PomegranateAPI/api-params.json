@@ -1,0 +1,49 @@
+{
+  "paths": [
+    {
+      "name": "/items",
+      "lambdaFunction": "PomegranateAPILambdaFunction",
+      "privacy": {
+        "protected": true,
+        "auth": [
+          "/POST",
+          "/GET",
+          "/PUT",
+          "/PATCH",
+          "/DELETE"
+        ],
+        "unauth": [
+          "/POST",
+          "/GET",
+          "/PUT",
+          "/PATCH",
+          "/DELETE"
+        ]
+      },
+      "policyResourceName": "/items"
+    }
+  ],
+  "resourceName": "PomegranateAPI",
+  "apiName": "PomegranateAPI",
+  "functionArns": [
+    {
+      "lambdaFunction": "PomegranateAPILambdaFunction"
+    }
+  ],
+  "privacy": {
+    "auth": 1,
+    "unauth": 1,
+    "authRoleName": "amplify-projoco-dev-222034-authRole",
+    "unAuthRoleName": "amplify-projoco-dev-222034-unauthRole"
+  },
+  "dependsOn": [
+    {
+      "category": "function",
+      "resourceName": "PomegranateAPILambdaFunction",
+      "attributes": [
+        "Name",
+        "Arn"
+      ]
+    }
+  ]
+}
