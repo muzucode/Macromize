@@ -18,7 +18,7 @@
       "function": {
         "PomegranateAPILambdaFunction": {
           "deploymentBucketName": "amplify-projoco-dev-222034-deployment",
-          "s3Key": "amplify-builds/PomegranateAPILambdaFunction-37487236714c4233587a-build.zip"
+          "s3Key": "amplify-builds/PomegranateAPILambdaFunction-354c5754524f71536655-build.zip"
         }
       }
     }
