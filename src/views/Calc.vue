@@ -1,6 +1,6 @@
 <template>
   <div class="container w-50">
-    <h1 class="display-1 mt-5">Total Health 360</h1>
+    <h1 class="display-1 mt-5">Macromize</h1>
     <p class="mb-4">Calculate your necessary nutrient intake below!</p>
     <MainCard>
       <div class="container">
