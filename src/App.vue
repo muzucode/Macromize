@@ -1,17 +1,17 @@
 <template>
 <div class="main">
   <div v-if="username">Current user: {{username}}</div>
-  <div id="nav">
-    <router-link to="/">Home</router-link> | 
-    <router-link to="calc">Calc</router-link> | 
-    <router-link to="find-a-coach">Find a Coach</router-link>
+  <!-- <div id="nav"> -->
+    <!-- <router-link to="/">Home</router-link> | 
+    <router-link to="calc">Calc</router-link> -->
+    <!-- <router-link to="find-a-coach">Find a Coach</router-link> -->
     <!-- <router-link to="/register">Register</router-link> |
     <router-link to="/verify">Verify</router-link> |
     <router-link to="/signin">Sign In</router-link> |
     <router-link @click="signOut" to="/signout">Sign Out</router-link> | 
     <button @click="currentSession(), currentAuthenticatedUser()">Session</button> -->
 
-  </div>
+  <!-- </div> -->
   <router-view/>
 </div>
 </template>

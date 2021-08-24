@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <h1 class="mb-4" id="sectionTitle">
+    <h1 class="my-2" id="sectionTitle">
       <slot></slot>
     </h1>
   </div>
