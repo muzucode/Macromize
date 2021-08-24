@@ -344,7 +344,7 @@ export default {
 
   },
 }
-// Rebuild me!
+// Rebuild me!!
 </script>
 
 <style>
