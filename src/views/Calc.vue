@@ -1,5 +1,5 @@
 <template>
-  <div class="container w-50">
+  <div class="container-lg">
     <h1 class="display-1 mt-5">Macromize</h1>
     <p class="mb-4">Calculate your necessary nutrient intake below!</p>
     <MainCard>
