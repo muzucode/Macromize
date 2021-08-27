@@ -1,7 +1,8 @@
 <template>
   <div class="container-lg">
-    <h1 class="display-1 mt-5">Macromize</h1>
-    <p class="mb-4">Calculate your necessary nutrient intake below!</p>
+    <LogoHeading>Macromize</LogoHeading>
+    <LogoSubheading>Calculate your necessary nutrient intake below!</LogoSubheading>
+
     <MainCard>
       <div class="container">
         <!-- Personal -->
@@ -138,6 +139,8 @@ import SectionTitle from '../components/SectionTitle.vue';
 import MealPlan from '../services/MealPlan/MealPlan.js';
 import Workout from '../services/Workout/Workout.js'; 
 import Resource from '../services/Resource/Resource.js'; 
+import LogoHeading from '../components/LogoHeading.vue';
+import LogoSubheading from '../components/LogoSubheading.vue';
 // import CardItemCollection from '../components/CardItemCollection.vue';
 
 export default {
@@ -145,6 +148,8 @@ export default {
   components: {
     MainCard,
     SectionTitle,
+    LogoHeading,
+    LogoSubheading
     // CardItemCollection
   },
   data: () => {
@@ -219,16 +224,22 @@ export default {
 
     },
     calculateGoals () {
-      try {
-        this.calculateCalorieGoal();
-        this.calculateCarbGoal();
-        this.calculateProteinGoal();
-        this.loadMealPlans();
-        // this.loadWorkoutPlans();
-        // this.loadResources();
-      } catch(err) {
-        console.error(err);
+      // Check for negative numbers
+      if(this.weight_const >= 0 && this.age_const >= 0){
+        try {
+          this.calculateCalorieGoal();
+          this.calculateCarbGoal();
+          this.calculateProteinGoal();
+          // this.loadMealPlans();
+          // this.loadWorkoutPlans();
+          // this.loadResources();
+        } catch(err) {
+          console.error(err);
+        }
+      } else {
+        window.alert("Negative numbers are not allowed!");
       }
+
 
     },
     loadMealPlans () {
@@ -360,12 +371,6 @@ export default {
   width: 2%;
 }
 
-p {
-  font-family: 'Architects Daughter', cursive;
-  font-weight:bold;
-  font-size: 1.2em;
-}
-
 #bs-overrides .row h1, h2, h3, h4{
   text-align:left;
   font-family: 'Staatliches', cursive;
@@ -383,9 +388,7 @@ button {
   float:left;
 }
 
-#bs-overrides .display-1{
-  font-family: 'Staatliches', cursive;
-}
+
 
 #sectionTitle{
   background-color: rgb(233, 233, 233);
