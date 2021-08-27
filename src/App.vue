@@ -3,7 +3,7 @@
   <div v-if="username">Current user: {{username}}</div>
   <div id="nav">
     <router-link to="/findacoach">Find a Coach</router-link> | 
-    <router-link to="/calc">Macro Calculator</router-link>
+    <!-- <router-link to="/calc">Macro Calculator</router-link> -->
   </div>
   <router-view/>
 </div>
