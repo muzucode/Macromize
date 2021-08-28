@@ -10,9 +10,7 @@
         <div>In-person</div>  
       </div>
       <div class="col border border-secondary">
-        <div class="row">Contact</div>
-        <div class="row">Phone</div>
-        <div class="row">Email</div>
+        <button class="btn">Contact</button>
       </div>
 
     </div>
