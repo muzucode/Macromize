@@ -1,18 +1,19 @@
 <template>
-  <MainCard>
-    <h1 class="display-4 mb-5">Signed out</h1>
-    <h4 class="display-7 font-italic text-secondary">Good luck out there.</h4>
-    
-  </MainCard>
+  <div>
+    <LogoHeading>Signed out</LogoHeading>
+    <LogoSubheading>Good luck out there.</LogoSubheading>
+  </div>
 </template>
 
 <script>
-import MainCard from '../components/MainCard.vue';
+import LogoHeading from '../components/LogoHeading.vue';
+import LogoSubheading from '../components/LogoSubheading.vue';
 
 export default {
   name: "Sign Out",
   components: {
-    MainCard,
+    LogoHeading,
+    LogoSubheading
   }
 }
 </script>

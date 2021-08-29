@@ -14,6 +14,7 @@ class AmplifyAuthService {
             }
         });
         console.log(user);
+        console.log('Signed up!');
     } catch (error) {
         console.log('error signing up:', error);
     }
@@ -24,15 +25,19 @@ class AmplifyAuthService {
       // eslint-disable-next-line no-unused-vars
         const user = await Auth.signIn(username, password);
         console.log('User has been signed in');
+        return 'USER HAS SIGNED IN'
     } catch (error) {
         console.log('error signing in', error);
+        return false
     }
   }
 
   async confirmSignUp(username, code) {
     try {
       await Auth.confirmSignUp(username, code);
-      console.log('User has been verified');
+      console.log('USER HAS BEEN VERIFIED');
+      return true
+      
     } catch (error) {
         console.log('error confirming sign up', error);
     }

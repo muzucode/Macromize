@@ -1,10 +1,10 @@
 <template>
-  <p class="mb-4"><slot></slot></p>
+  <p class="mb-5"><slot></slot></p>
 </template>
 
 <script>
 export default {
-
+  name: 'Logo Subheading'
 }
 </script>
 

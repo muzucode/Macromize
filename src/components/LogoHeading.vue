@@ -9,6 +9,7 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 #bs-overrides .display-1{
   font-family: 'Staatliches', cursive;
 }

@@ -1,27 +1,33 @@
 <template>
-  <MainCard>
-    <h1 class="display-4 mb-5">Sign In</h1>
+  <div>
+    <LogoHeading>Sign In</LogoHeading>
+    <LogoSubheading>Sign in below</LogoSubheading>
 
     <form>
+
+      <!-- Username -->
       <div class="form-group">
-        <label for="exampleInputUsername">Username</label>
-        <!-- V-model email -->
-        <input v-model="username" class="form-control w-25 mx-auto" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter username">
+        <label class="mb-1">Username</label>
+        <input v-model="username" class="form-control w-25 mx-auto input-mdrn mb-5" placeholder="Username">
       </div>
+
+      <!-- Password -->
       <div class="form-group">
-        <label for="exampleInputPassword1" class="mt-3">Password</label>
-        <!-- V-model password -->
-        <input v-model="password" type="password" class="form-control  w-25 mx-auto" id="exampleInputPassword1" placeholder="Password">
-        <small id="emailHelp" class="form-text text-muted"><router-link to="/forgot-password">Forgot password?</router-link></small>
+        <label class="mb-1">Password</label>
+        <input v-model="password" type="password" class="form-control  w-25 mx-auto input-mdrn mb-1" placeholder="Password">
+        <small class="form-text text-muted"><router-link to="/forgot-password">Forgot password?</router-link></small>
       </div>
+
       <button @click="signIn" type="button" class="btn btn-lg w-25 btn-secondary mt-5">Submit</button>
+    
     </form>
     
-  </MainCard>
+  </div>
 </template>
 
 <script>
-import MainCard from '../components/MainCard.vue';
+import LogoHeading from '../components/LogoHeading.vue';
+import LogoSubheading from '../components/LogoSubheading.vue';
 import AmplifyAuthService from '../services/AmplifyAuthService.js';
 
 export default {
@@ -36,16 +42,43 @@ export default {
   },
   methods: {
     signIn: function () {
-      AmplifyAuthService.signIn(this.username, this.password);
+      AmplifyAuthService.signIn(this.username, this.password)
+      .then(res => {
+        if(res){
+          this.$emit('logInEvent');
+          this.$router.push({name: 'Find a Coach'});
+        }
+      })
+      .catch(err => {
+        console.error(err);
+      });
     }
   },
   components: {
-    MainCard,
-
+    LogoHeading,
+    LogoSubheading
   }
 }
 </script>
 
 <style>
+  button {
+    font-family: 'Staatliches', cursive;
+  }
+
+  label {
+    font-family: 'Staatliches', cursive;
+  }
+  .input-mdrn {
+    background:none;
+    border-top:none;
+    border-left:none;
+    border-right:none;
+    border-bottom: 2px solid #2c3e50;
+    border-radius:0px;
+  }
+  ::-webkit-input-placeholder {
+    font-family: 'Architects Daughter', cursive;
+  }
 
 </style>

@@ -13,7 +13,11 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
+
 #sectionTitle{
   background-color: rgb(233, 233, 233);
+  text-align:left;
+  font-family: 'Staatliches', cursive;
 }
 </style>
