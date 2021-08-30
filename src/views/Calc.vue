@@ -1,6 +1,6 @@
 <template>
   <div class="container-lg">
-    <LogoHeading>Macromize</LogoHeading>
+    <LogoHeading>Macro Calculator</LogoHeading>
     <LogoSubheading>Calculate your necessary nutrient intake below!</LogoSubheading>
 
     <MainCard>

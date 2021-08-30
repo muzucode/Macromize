@@ -1,7 +1,7 @@
 <template>
-<div>
+<div class="container-lg">
   <LogoHeading>Register</LogoHeading>
-  <LogoSubheading>Sign up as either a trainer or trainee!</LogoSubheading>
+  <LogoSubheading>Sign up as either a coach or trainee!</LogoSubheading>
 
     <form>
       <!-- Username -->
@@ -19,7 +19,22 @@
       <!-- Password -->
       <div class="form-group">
         <label class="mb-1">Password</label>
-        <input v-model="password" type="password" class="form-control mb-5 w-25 mx-auto input-mdrn" placeholder="Password">
+        <input v-model="password" type="password" class="form-control mb-5 w-25 mx-auto input-mdrn">
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label class="mb-1">Confirm Password</label>
+        <input v-model="password_confirm" type="password" class="form-control mb-5 w-25 mx-auto input-mdrn">
+      </div>
+
+      <div class="form-group">
+        <label class="mb-1">Coach or Trainee?</label>
+        <br>
+        <select v-model="account_type" class="custom-select w-25 mb-5 mx-auto input-mdrn">
+          <option value="Trainee" selected>Trainee</option>
+          <option value="Coach">Coach</option>
+        </select>
       </div>
 
       <!-- Submit -->
@@ -34,6 +49,7 @@
 <script>
 // import MainCard from '../components/MainCard.vue';
 import AmplifyAuthService from '../services/AmplifyAuthService.js';
+// import AmplifyAPIService from '../services/AmplifyAPIService.js';
 import LogoHeading from '../components/LogoHeading.vue';
 import LogoSubheading from '../components/LogoSubheading.vue';
 
@@ -44,20 +60,27 @@ export default {
     return {
       username: '',
       password: '',
+      password_confirm: '',
       email: '',
-      phone_number: ''
+      phone_number: '',
+      account_type: ''
     }
   },
   methods: {
     signUp: function () {
-      
-      AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number)
-      // Redirect to verify page
-      .then(this.$router.push({ name: 'Verify' }));
+      // Add user to Cognito and send POST to Lambda
+      AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number, this.account_type)
+      // Redirect to verify page if no error
+      .then((res) => {
+        console.log(res);
+        this.$router.push({ name: 'Verify' });
+      })
+      .catch(err => {
+        console.error(err);
+      });
     }
   },
   components: {
-    // MainCard,
     LogoHeading,
     LogoSubheading
   }

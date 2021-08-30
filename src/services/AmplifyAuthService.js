@@ -1,22 +1,31 @@
 import { Auth } from 'aws-amplify';
+import AmplifyAPIService from './AmplifyAPIService';
 
 class AmplifyAuthService {
-  async signUp(username, password, email, phone_number) {
+  async signUp(username, password, email, phone_number, account_type) {
     // If email is blank, default it to mangozango
     email ? email : "mangozango222@gmail.com";
+
     try {
+      // Add user to Cognito
         const { user } = await Auth.signUp({
-            username,
-            password,
+            username: username,
+            password: password,
             attributes: {
-              email,
-              phone_number
+              email: email,
+              phone_number: phone_number,
+              'custom:account_type': account_type
             }
         });
-        console.log(user);
-        console.log('Signed up!');
+
+        // POST API Gateway --> Lambda writes to DynamoDB
+        AmplifyAPIService.postUser(user.username);
+
+        return user;
     } catch (error) {
         console.log('error signing up:', error);
+        window.alert('Please make sure all fields are filled out correctly');
+        throw new Error(error);
     }
   }
 

@@ -1,16 +1,40 @@
 import {API} from 'aws-amplify';
 
-const apiName = 'StrawberryAPI';
+const apiName = 'PomegranateAPI';
 /* eslint-disable */
-const myInit = { // OPTIONAL
-  headers: {}, // OPTIONAL
-  response: true, // OPTIONAL (return the entire Axios response object instead of only response.data)
-  queryStringParameters: {  // OPTIONAL
-      name: 'param',
-  },
-};
+// const myInit = { // OPTIONAL
+//   body: {
+//     data: ''
+//   }
+// };
 
 class AmplifyAPIService {
+
+  postUser(username){
+    const response = API.post(apiName, '/users/add', {body: username} )
+    .then(res => {
+      // Add your code here
+      console.log('yo');
+      console.log(res);
+    })
+    .catch(error => {
+      console.log(error.response);
+   });
+
+   return response;
+  }
+
+
+// COME BACK TO THIS. FIGURING OUT HOW TO MAKE POST REQUEST FROM LOCAL HOST.
+
+
+
+
+
+
+
+
+
 
   // Sample get request
   getReq(){
