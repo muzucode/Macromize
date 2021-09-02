@@ -1,10 +1,16 @@
 # Macromize
 
 ## Description
-Macromize is a macronutrient intake calculator that calculates the necessary amount of calories and macronutrients for attaining fitness and health goals.
+A platform that facilitates beginners' fitness research pipeline with a macronutrient calculator and fitness trainer marketplace (coming soon).
+
+## Primary technologies:
+* **Frontend**: Vue.js, Bootstrap, JavaScript
+* **Backend API**: Lambda (Serverless Express.js), API Gateway (REST API)
+* **Database**: DynamoDB
+* **Deployment**: AWS Amplify, GitHub
 
 ## In progress...
-Currently I am working on implementing a user system with AWS Cognito that will enable trainers and coaches to advertise their services through the MacromizeHealth.com portal. 
+Currently I am working on implementing a marketplace setup where users can create an account and then search available fitness coaches that they are interested in purchasing products/services from.
 
 ## Project setup
 ```
