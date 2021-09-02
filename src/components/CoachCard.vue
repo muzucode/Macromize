@@ -1,10 +1,13 @@
 <template>
   <div class="container-md mb-4 p-3 rounded bg-white shadow">
-      <div class="row my-2 text-left"><h2 class="trainer-name">Sean Hickey <span class="certs">(CPT, ACE)</span></h2></div>
+      <div class="row my-2 text-left"><h2 class="trainer-name">
+        <!-- Coach name slot -->
+        <slot name="coach-name"></slot>
+        <span class="certs">  (CPT, ACE)</span></h2></div>
       <div class="row p-3 ">
-        <div class="col-3"><img id="profileImg" class="img-fluid border border-secondary" src="https://2mhysdb906v0sbr2s3cus12x-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/Profile_Feature.png"/></div>
-        <div class="col-6 description p-3">Lorem ipsum doin voluptate velit esse cilluulpa qui officia deserunt mollit anim id est laborum.</div>
-        <div class="col-3">
+        <div class="col col-sm"><img id="profileImg" class="img-fluid border border-secondary" src="https://2mhysdb906v0sbr2s3cus12x-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/Profile_Feature.png"/></div>
+        <div class="col col-lg description p-3">Lorem ipsum doin voluptate velit esse cilluulpa qui officia deserunt mollit anim id est laborum.</div>
+        <div class="col col-sm">
             <button id="btn-contact" class="btn mb-2  w-100">Contact</button>
             <button id="btn-review" class="btn btn-secondary mb-2 w-100">Reviews</button>
             <button id="btn-leavereview" class="btn w-100">Leave a review</button>

@@ -19,7 +19,7 @@ class AmplifyAuthService {
         });
 
         // POST API Gateway --> Lambda writes to DynamoDB
-        AmplifyAPIService.postUser(user.username);
+        AmplifyAPIService.postUser(username, account_type);
 
         return user;
     } catch (error) {
@@ -84,8 +84,6 @@ class AmplifyAuthService {
   async currentAuthenticatedUser(){
     return Auth.currentAuthenticatedUser()
     .then(data => {
-      console.log('In the service:');
-      console.log(data);
       return data;
     })
     .catch(err => console.log(err));

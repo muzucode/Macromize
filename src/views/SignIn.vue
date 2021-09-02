@@ -45,14 +45,17 @@ export default {
       AmplifyAuthService.signIn(this.username, this.password)
       .then(res => {
         if(res){
+          // Update logged in state
           this.$emit('logInEvent');
+          // Update current username state (for My Profile tab)
+          this.$emit('logInUsernameUpdateEvent');
           this.$router.push({name: 'Find a Coach'});
         }
       })
       .catch(err => {
         console.error(err);
       });
-    }
+    },
   },
   components: {
     LogoHeading,

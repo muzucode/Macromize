@@ -1,42 +1,57 @@
-import {API} from 'aws-amplify';
-
-const apiName = 'PomegranateAPI';
 /* eslint-disable */
-// const myInit = { // OPTIONAL
-//   body: {
-//     data: ''
-//   }
-// };
+import {API} from 'aws-amplify';
+const apiName = 'PomegranateAPI';
 
 class AmplifyAPIService {
 
-  postUser(username){
-    const response = API.post(apiName, '/users/add', {body: username} )
-    .then(res => {
-      // Add your code here
-      console.log('yo');
-      console.log(res);
-    })
-    .catch(error => {
-      console.log(error.response);
-   });
+  getCoaches(){
+    const response = API.get(apiName,'/users/coaches')
+    .then((res) => {
+      return res.items;
+    }, (error) => {
+      console.log(error);
+    });
 
+    return response;
+
+  }
+
+  postUser(username, account_type){
+    const response = API.post(apiName,'/users/add', {
+      
+      body:{
+        'username': username,
+        'account_type': account_type
+      }
+
+    })
+    .then((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
+    
    return response;
   }
 
+  testReq(){
+    const response = API.post(apiName,'/users/add', {
+      
+      body:{
+        "username": 'first legit user',
+        "account_type": 'first legit acc type'
+      }
 
-// COME BACK TO THIS. FIGURING OUT HOW TO MAKE POST REQUEST FROM LOCAL HOST.
+    })
+    .then((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
+    
+   return response;
+  }
 
-
-
-
-
-
-
-
-
-
-  // Sample get request
   getReq(){
     const response = API.get(apiName, '/items')
     .then(res => {
@@ -50,7 +65,6 @@ class AmplifyAPIService {
    return response
   }
 
-  // Sample get request
   getWorks(){
     const response = API.get(apiName, '/works')
     .then(res => {

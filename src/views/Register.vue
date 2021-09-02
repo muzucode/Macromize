@@ -28,6 +28,7 @@
         <input v-model="password_confirm" type="password" class="form-control mb-5 w-25 mx-auto input-mdrn">
       </div>
 
+      <!-- Coach or Trainee? -->
       <div class="form-group">
         <label class="mb-1">Coach or Trainee?</label>
         <br>
@@ -37,8 +38,21 @@
         </select>
       </div>
 
+      <!-- First Name if Coach -->
+      <div v-if="account_type=='Coach'" class="form-group">
+        <label class="mb-1">First Name</label>
+        <input v-model="first_name" class="form-control mb-5 w-25 mx-auto input-mdrn" placeholder="First name">
+      </div>
+
+      <!-- Last Name if Coach -->
+      <div v-if="account_type=='Coach'" class="form-group">
+        <label class="mb-1">Last Name</label>
+        <input v-model="last_name" class="form-control mb-5 w-25 mx-auto input-mdrn" placeholder="Last name">
+      </div>
+
       <!-- Submit -->
-      <button @click="signUp()" type="button" class="btn btn-lg w-25 btn-secondary">Submit</button>
+      <button @click="signUp()" type="button" class="btn btn-lg mb-5 w-25 btn-secondary">{{btnSubmitText}}</button>
+      <!-- <button @click="testReq()" type="button" class="btn btn-lg w-25 btn-danger">Test Request</button> -->
     </form>
     
 
@@ -49,9 +63,9 @@
 <script>
 // import MainCard from '../components/MainCard.vue';
 import AmplifyAuthService from '../services/AmplifyAuthService.js';
-// import AmplifyAPIService from '../services/AmplifyAPIService.js';
 import LogoHeading from '../components/LogoHeading.vue';
 import LogoSubheading from '../components/LogoSubheading.vue';
+import AmplifyAPIService from '../services/AmplifyAPIService.js';
 
 
 export default {
@@ -63,21 +77,32 @@ export default {
       password_confirm: '',
       email: '',
       phone_number: '',
-      account_type: ''
+      account_type: '',
+      first_name: '',
+      last_name: '',
+      btnSubmitText: 'Submit'
     }
   },
   methods: {
     signUp: function () {
       // Add user to Cognito and send POST to Lambda
-      AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number, this.account_type)
-      // Redirect to verify page if no error
-      .then((res) => {
-        console.log(res);
-        this.$router.push({ name: 'Verify' });
-      })
-      .catch(err => {
-        console.error(err);
-      });
+      if(this.password==this.password_confirm){
+        AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number, this.account_type)
+        // Redirect to verify page if no error
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: 'Verify' });
+        })
+        .catch(err => {
+          console.error(err);
+        });
+      } else {
+        window.alert('Passwords do not match');
+      }
+
+    },
+    testReq: function() {
+      AmplifyAPIService.testReq();
     }
   },
   components: {

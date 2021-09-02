@@ -1,15 +1,16 @@
 <template>
 <div class="main">
-  <div v-if="username">Current user: {{username}}</div>
+  <div>-Under construction-</div>
   <div id="nav">
     <router-link to="/findacoach">Find a Coach</router-link> | 
     <router-link to="/calc">Macro Calculator</router-link>  |
+    <router-link v-if="loggedIn === true" :to="`/users/${username}`">Profile</router-link><span v-if="loggedIn === true">  |  </span>
     <router-link v-if="loggedIn === false" to="/register">Register</router-link><span v-if="loggedIn === false">  |  </span>
     <router-link v-if="loggedIn === false" to="/SignIn">Sign In</router-link><span v-if="loggedIn === false">  |</span>
     <router-link @click="signOut" v-if="loggedIn === true" to="/SignOut">Sign Out</router-link><span v-if="loggedIn === true"></span>
 
   </div>
-  <router-view @logInEvent="updateLoginState"/>
+  <router-view @logInEvent="updateLoginState()" @logInUsernameUpdateEvent="updateMyProfileState()"/>
 </div>
 </template>
 
@@ -34,17 +35,36 @@ export default {
     },
     updateLoginState: function () {
       this.loggedIn = true;
+    },
+    updateMyProfileState: function () {
+      // Set MyProfile URL to the current user
+      AmplifyAuthService.currentAuthenticatedUser()
+      .then((res) => {
+        return res.username;
+      })
+      .then((res) => {
+        // Set global username to the currently logged-in user
+        // Tethered to the profile menu tab
+        this.$root.username = res;
+      })
+      .catch((err) => { console.error(err)});
     }
   },
   created () {
     // Check if a user is logged in on create
     AmplifyAuthService.currentAuthenticatedUser()
-    .then((response) => {
-      if(response) {
-        this.loggedIn = true; 
+    .then((res) => {
+      if(res) {
+        this.loggedIn = true;
+        return res.username;
       } else {
         this.loggedIn = false;
       }})
+    .then((res) => {
+      // Set global username to the currently logged-in user
+      // Tethered to the profile menu tab
+      this.$root.username = res;
+    })
     .catch((err) => { console.error(err)});
   }
 }
