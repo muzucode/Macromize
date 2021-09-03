@@ -16,12 +16,14 @@ class AmplifyAPIService {
 
   }
 
-  postUser(username, account_type){
+  postUser(username, account_type, first_name, last_name){
     const response = API.post(apiName,'/users/add', {
       
       body:{
         'username': username,
-        'account_type': account_type
+        'account_type': account_type,
+        'first_name' : first_name,
+        'last_name' : last_name
       }
 
     })

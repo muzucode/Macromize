@@ -48,7 +48,7 @@ export default {
         this.$root.username = res;
       })
       .catch((err) => { console.error(err)});
-    }
+    },
   },
   created () {
     // Check if a user is logged in on create

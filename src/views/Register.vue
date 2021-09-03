@@ -87,16 +87,17 @@ export default {
     signUp: function () {
       // Add user to Cognito and send POST to Lambda
       if(this.password==this.password_confirm){
-        AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number, this.account_type)
-        // Redirect to verify page if no error
+        AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number, this.account_type, this.first_name, this.last_name)
         .then((res) => {
           console.log(res);
+          // Redirect to verify page if no error
           this.$router.push({ name: 'Verify' });
         })
         .catch(err => {
           console.error(err);
         });
       } else {
+        // Alert if password mismatch
         window.alert('Passwords do not match');
       }
 

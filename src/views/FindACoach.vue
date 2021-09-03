@@ -8,10 +8,18 @@
     <span class="sr-only"></span>
   </div>
 
+  <!-- List of coach cards -->
   <div class="container-lg">
     <CoachCard v-for="coach in coaches" :key="coach">
       <!-- Coach name slot -->
-      <template v-slot:coach-name>{{coach.username}}</template>
+      <template v-slot:coach-name>{{coach.first_name}} {{coach.last_name}}</template>
+      <!-- Connect button slot -->
+      <template v-slot:btn-coaches>
+        <router-link tag="button" :to="`/users/${coach.username}`" id="btn-connect" class="btn mb-2 w-100">Connect!</router-link>
+        <router-link tag="button" :to="`/users/${coach.username}/reviews`" id="btn-reviews" class="btn btn-secondary mb-2 w-100">Reviews</router-link>
+        <router-link tag="button" :to="`/users/${coach.username}/leave-a-review`" id="btn-leavereview" class="btn w-100">Leave a review</router-link>
+      </template>
+      
     </CoachCard>
   </div>
 

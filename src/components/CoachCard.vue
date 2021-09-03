@@ -5,12 +5,11 @@
         <slot name="coach-name"></slot>
         <span class="certs">  (CPT, ACE)</span></h2></div>
       <div class="row p-3 ">
-        <div class="col col-sm"><img id="profileImg" class="img-fluid border border-secondary" src="https://2mhysdb906v0sbr2s3cus12x-wpengine.netdna-ssl.com/wp-content/uploads/2019/01/Profile_Feature.png"/></div>
-        <div class="col col-lg description p-3">Lorem ipsum doin voluptate velit esse cilluulpa qui officia deserunt mollit anim id est laborum.</div>
-        <div class="col col-sm">
-            <button id="btn-contact" class="btn mb-2  w-100">Contact</button>
-            <button id="btn-review" class="btn btn-secondary mb-2 w-100">Reviews</button>
-            <button id="btn-leavereview" class="btn w-100">Leave a review</button>
+        <div class="col col-3"><img id="profileImg" class="img-fluid" src="https://assets.website-files.com/5bee2dee67d34caed2a30658/5bf358d54414ed3e8438857e_Personal%20Trainer%20copy.jpg"/></div>
+        <div class="col col-7 description p-3">Lorem ipsum doin voluptate velit esse cilluulpa qui officia deserunt mollit anim id est laborum.</div>
+        <div class="col col-2">
+            <!-- Button coaches slot -->
+            <slot name="btn-coaches"></slot>
         </div>      
       </div>
 
@@ -41,19 +40,22 @@ export default {
 #profileImg {
 
 }
-#btn-contact {
-  background-color: #6C7AFD;
+#btn-connect {
+  background-color: #4d7e50;
   color:white;
+  font-family: 'Staatliches', cursive;
 }
 .description {
   background-color: #f6f6f6;
   font-family: 'Raleway', sans-serif;
 }
-button {
+#btn-leavereview {
+  background-color: #474d83;
+  color:white;
   font-family: 'Staatliches', cursive;
 }
-#btn-leavereview {
-  background-color: #060e55;
+#btn-reviews {
   color:white;
+  font-family: 'Staatliches', cursive;
 }
 </style>
