@@ -86,6 +86,16 @@ export default {
   methods: {
     signUp: function () {
       // Add user to Cognito and send POST to Lambda
+      const params = {
+        username: this.username,
+        password: this.password,
+        email: this.email,
+        phone_number: this.phone_number,
+        account_type: this.account_type,
+        first_name: this.first_name,
+        last_name: this.last_name
+      };
+      console.log(params);
       if(this.password==this.password_confirm){
         AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number, this.account_type, this.first_name, this.last_name)
         .then((res) => {

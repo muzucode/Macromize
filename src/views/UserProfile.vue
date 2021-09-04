@@ -19,7 +19,9 @@
 
     <MainCard>
       <div class="row">
-        {{userProfileInfo.first_name}} {{userProfileInfo.last_name}}
+        <div class="col">
+          <h1 id="name">{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</h1>
+        </div>
       </div>
     </MainCard>
 
@@ -73,7 +75,12 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 #username {
 
+}
+#bs-overrides #name {
+  font-family: 'Josefin Sans', sans-serif;
+  float:left;
 }
 </style>
