@@ -4,12 +4,18 @@ const apiName = 'PomegranateAPI';
 
 class AmplifyAPIService {
 
-  getUserByUsername(){
+  getUserByUsername(query){
     // if does exist, save info
     // if doesn't exist, show DOES NOT EXIST
-    const response = API.get(apiName,'/users/coaches')
+    // accept username in endpoint URI
+    const response = API.get(apiName,'/users/userInfo', {
+      'queryStringParameters': {
+        'username': query
+      }
+    })
     .then((res) => {
-      return res.items;
+      console.log(res);
+      return res;
     }, (error) => {
       console.log(error);
     });

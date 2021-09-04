@@ -56,17 +56,17 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/FindACoach.vue')
   },
   {
-    path: '/users/:id',
+    path: '/users/:username/',
     name: 'User Profile',
     component: () => import(/* webpackChunkName: "about" */ '../views/UserProfile.vue')
   },
   {
-    path: '/users/:id/reviews',
+    path: '/users/:username/reviews',
     name: 'Reviews',
     component: () => import(/* webpackChunkName: "about" */ '../views/Reviews.vue')
   },
   {
-    path: '/users/:id/leave-a-review',
+    path: '/users/:username/leave-a-review',
     name: 'Leave a Review',
     component: () => import(/* webpackChunkName: "about" */ '../views/LeaveAReview.vue')
   }

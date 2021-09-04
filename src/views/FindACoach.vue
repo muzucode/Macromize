@@ -51,7 +51,7 @@ export default {
       this.coaches = coaches;
     }
   },
-  created: function() {
+  created: async function() {
     this.getCoaches();
   }
 }
