@@ -4,6 +4,19 @@ const apiName = 'PomegranateAPI';
 
 class AmplifyAPIService {
 
+  getUserByUsername(){
+    // if does exist, save info
+    // if doesn't exist, show DOES NOT EXIST
+    const response = API.get(apiName,'/users/coaches')
+    .then((res) => {
+      return res.items;
+    }, (error) => {
+      console.log(error);
+    });
+
+    return response;
+  }
+
   getCoaches(){
     const response = API.get(apiName,'/users/coaches')
     .then((res) => {
