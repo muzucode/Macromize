@@ -1,7 +1,7 @@
 <template>
 <div class="main">
-  <div id="nav">
-    <router-link to="/findacoach">Find a Coach</router-link> | 
+  <div id="nav" class="p-3">
+    <router-link to="/findacoach">Find a Trainer</router-link> | 
     <router-link to="/calc">Macro Calculator</router-link>  |
     <router-link v-if="loggedIn === true" :to="`/users/${username}`">Profile</router-link><span v-if="loggedIn === true">  |  </span>
     <router-link v-if="loggedIn === false" to="/register">Register</router-link><span v-if="loggedIn === false">  |  </span>

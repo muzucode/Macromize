@@ -1,6 +1,6 @@
 <template>
 <div class="container-lg">
-  <LogoHeading>Find a Coach</LogoHeading>
+  <LogoHeading>Find a Trainer</LogoHeading>
   <LogoSubheading>Select a coach below to start your fitness journey!</LogoSubheading>
 
   <!-- Loading gif -->
@@ -32,13 +32,15 @@ import CoachCard from '../components/CoachCard.vue';
 import LogoHeading from '../components/LogoHeading.vue';
 import LogoSubheading from '../components/LogoSubheading.vue';
 import AmplifyAPIService from '../services/AmplifyAPIService.js';
+// import LoadingGif from '../services/AmplifyAPIService.js';
 
 export default {
   name: 'Find a Coach',
   components: {
     CoachCard,
     LogoHeading,
-    LogoSubheading
+    LogoSubheading,
+    // LoadingGif
   },
   data: function () {
     return {

@@ -61,7 +61,6 @@
 </template>
 
 <script>
-// import MainCard from '../components/MainCard.vue';
 import AmplifyAuthService from '../services/AmplifyAuthService.js';
 import LogoHeading from '../components/LogoHeading.vue';
 import LogoSubheading from '../components/LogoSubheading.vue';
@@ -80,12 +79,20 @@ export default {
       account_type: '',
       first_name: '',
       last_name: '',
+      bio: '',
+      avatar: '',
+      friends: [],
+      meal_plans: [],
+      workouts: [],
+      coaches: [],
+      trainees: [],
+      settings: [],
       btnSubmitText: 'Submit'
     }
   },
   methods: {
     signUp: function () {
-      // Add user to Cognito and send POST to Lambda
+      
       const params = {
         username: this.username,
         password: this.password,
@@ -93,15 +100,26 @@ export default {
         phone_number: this.phone_number,
         account_type: this.account_type,
         first_name: this.first_name,
-        last_name: this.last_name
+        last_name: this.last_name,
+        bio: this.bio,
+        avatar: this.avatar,
+        friends: this.friends,
+        meal_plans: this.meal_plans,
+        workouts: this.workouts
       };
-      console.log(params);
+
       if(this.password==this.password_confirm){
+
+        // Add user to Cognito
         AmplifyAuthService.signUp(this.username, this.password, this.email, this.phone_number, this.account_type, this.first_name, this.last_name)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+
+          // Post to Lambda/DynamoDB
+          AmplifyAPIService.postUser(params);
+
           // Redirect to verify page if no error
           this.$router.push({ name: 'Verify' });
+
         })
         .catch(err => {
           console.error(err);

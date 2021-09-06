@@ -4,7 +4,7 @@
     <!-- Logo heading -->
     <div class="row">
       <div class="col">
-        <LogoHeading id="username">{{this.$route.params.username}}</LogoHeading>
+        <LogoHeading id="username">{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</LogoHeading>
       </div>
     </div>
 
@@ -15,12 +15,22 @@
       </div>
     </div>
 
-    <!-- Profile name heading -->
 
-    <MainCard>
+    <!-- Loading gif -->
+    <div v-if="finishedLoading === false" class="spinner-border" role="status">
+      <span class="sr-only"></span>
+    </div>
+
+    <!-- Profile card -->
+    <MainCard v-if="finishedLoading">
       <div class="row">
         <div class="col">
-          <h1 id="name">{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</h1>
+          <h1 id="left-float">{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h4 id="left-float" class="muted">User</h4>
         </div>
       </div>
     </MainCard>
@@ -43,7 +53,8 @@ export default {
   },
   data: function () {
     return {
-      userProfileInfo: {}
+      userProfileInfo: {},
+      finishedLoading: false
     }
   },
   methods: {
@@ -62,6 +73,7 @@ export default {
     .then(res => {
       console.log('^User retrieved from DynamoDB^');
       // Receive an array of items back containing the single item
+      this.finishedLoading = true;
       return res.items[0];
     })
     .catch(err => {
@@ -79,8 +91,11 @@ export default {
 #username {
 
 }
-#bs-overrides #name {
+#bs-overrides #left-float {
   font-family: 'Josefin Sans', sans-serif;
   float:left;
+}
+.muted {
+  color: rgb(165, 165, 165)
 }
 </style>

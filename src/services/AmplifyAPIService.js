@@ -35,19 +35,15 @@ class AmplifyAPIService {
 
   }
 
-  postUser(username, account_type, first_name, last_name){
+  postUser(params){
     const response = API.post(apiName,'/users/add', {
-      
-      body:{
-        'username': username,
-        'account_type': account_type,
-        'first_name' : first_name,
-        'last_name' : last_name
-      }
+
+      body: params
 
     })
-    .then((response) => {
-      console.log(response);
+    .then((res) => {
+      console.log(res);
+      return res;
     }, (error) => {
       console.log(error);
     });

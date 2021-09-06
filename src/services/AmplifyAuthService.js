@@ -1,5 +1,4 @@
 import { Auth } from 'aws-amplify';
-import AmplifyAPIService from './AmplifyAPIService';
 
 class AmplifyAuthService {
   async signUp(username, password, email, phone_number, account_type, first_name, last_name) {
@@ -19,9 +18,6 @@ class AmplifyAuthService {
               'custom:account_type': account_type
             }
         });
-
-        // Post to Lambda/DynamoDB
-        AmplifyAPIService.postUser(username, account_type, first_name, last_name);
 
         return user;
     } catch (error) {
