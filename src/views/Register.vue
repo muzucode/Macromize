@@ -1,7 +1,7 @@
 <template>
 <div class="container-lg">
   <LogoHeading>Register</LogoHeading>
-  <LogoSubheading>Sign up as either a coach or trainee!</LogoSubheading>
+  <LogoSubheading>Sign up as either a trainer or trainee!</LogoSubheading>
 
     <form>
       <!-- Username -->
@@ -30,11 +30,11 @@
 
       <!-- Coach or Trainee? -->
       <div class="form-group">
-        <label class="mb-1">Coach or Trainee?</label>
+        <label class="mb-1">Trainer or Trainee?</label>
         <br>
         <select v-model="account_type" class="custom-select w-25 mb-5 mx-auto input-mdrn">
+          <option value="Coach">Trainer</option>
           <option value="Trainee" selected>Trainee</option>
-          <option value="Coach">Coach</option>
         </select>
       </div>
 

@@ -69,6 +69,11 @@ const routes = [
     path: '/users/:username/leave-a-review',
     name: 'Leave a Review',
     component: () => import(/* webpackChunkName: "about" */ '../views/LeaveAReview.vue')
+  },
+  {
+    path: '/edit-profile',
+    name: 'Edit Profile',
+    component: () => import(/* webpackChunkName: "about" */ '../views/EditProfile.vue')
   }
 ]
 

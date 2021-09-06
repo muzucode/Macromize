@@ -15,7 +15,7 @@ class AmplifyAPIService {
     })
     .then((res) => {
       console.log(res);
-      return res;
+      return res.items[0];
     }, (error) => {
       console.log(error);
     });
