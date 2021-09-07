@@ -1,17 +1,17 @@
-<template>
+<template  >
   <div class="container-lg">
 
     <!-- Logo heading -->
     <div class="row">
       <div class="col">
-        <LogoHeading id="username">{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</LogoHeading>
+        <LogoHeading>{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</LogoHeading>
       </div>
     </div>
 
     <!-- Logo subheading -->
     <div class="row">
       <div class="col">
-        <LogoSubheading id="username">{{userProfileInfo.account_type}}</LogoSubheading>
+        <LogoSubheading>{{userProfileInfo.account_type}}</LogoSubheading>
       </div>
     </div>
 
@@ -36,36 +36,37 @@
       <!-- User name -->
       <div class="row">
         <div class="col">
-          <h1 id="left-float">{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</h1>
+          <h1 class="float-start" id="name">{{userProfileInfo.first_name}} {{userProfileInfo.last_name}}</h1>
         </div>
       </div>
 
       <!-- User subheading -->
-      <div class="row">
-        <div class="col">
-          <h4 id="left-float" class="muted">User</h4>
-        </div>
-      </div>
+      <MutedSectionHeading>
+        User
+      </MutedSectionHeading>
 
       <!-- AVATAR AND BIO ROW -->
-      <div class="row">
+      <div class="row my-2">
         <!-- AVATAR -->
         <div class="col-3">
-          <img class="float-start border border-secondary my-2" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWaOvEdKR6pRsnqWLvk7e8Up5cn92iG8-XwV7IgDelbAp-Bf-7gbvIP8-LqVgDaCuYhZg&usqp=CAU" />
+          <img class="float-start border border-secondary" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWaOvEdKR6pRsnqWLvk7e8Up5cn92iG8-XwV7IgDelbAp-Bf-7gbvIP8-LqVgDaCuYhZg&usqp=CAU" />
         </div>
         <!-- BIO -->
         <div class="col-7 text-start">
-          <!-- {{userProfileInfo.bio}} -->
-          "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+          <MutedSectionHeading>Bio:</MutedSectionHeading>
+          Sed ut perspiciatt, sed quia amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
         </div>
       </div>   
 
+    <!-- Bottom Nav -->
     <div class="row mt-3">
       <div class="col">
-        <UserProfileNav ></UserProfileNav>
+        <UserProfileNav></UserProfileNav>
       </div>
     </div>
 
+    <!-- Resources Preview -->
+    <ResourcePreview @updatenow="updateResourceSection(value)">{{resourcePreviewTitle}}</ResourcePreview>
       
     </MainCard>
 
@@ -79,6 +80,8 @@ import LogoSubheading from '../components/LogoSubheading.vue';
 import AmplifyAPIService from '../services/AmplifyAPIService.js';
 import AmplifyAuthService from '../services/AmplifyAuthService.js';
 import UserProfileNav from '../components/UserProfileNav.vue';
+import MutedSectionHeading from '../components/UserProfile/MutedSectionHeading.vue';
+import ResourcePreview from '../components/UserProfile/ResourcePreview.vue';
 
 
 export default {
@@ -87,14 +90,17 @@ export default {
     MainCard,
     LogoHeading,
     LogoSubheading,
-    UserProfileNav
+    UserProfileNav,
+    MutedSectionHeading,
+    ResourcePreview
   },
   data: function () {
     return {
       userProfileInfo: {},
       finishedLoading: false,
       username: this.$route.params.username,
-      currentProfileEqualsCurrentAuthUser: Boolean
+      currentProfileEqualsCurrentAuthUser: Boolean,
+      resourcePreviewTitle: 'Red'
     }
   },
   methods: {
@@ -127,8 +133,11 @@ export default {
       })
 
       return response;
+    },
+    updateResourceSection: function (value) {
+      console.log('second test');
+      this.resourcePreviewTitle = value;
     }
-
   },
 
   created: async function(){
@@ -158,17 +167,15 @@ export default {
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
-#username {
 
+#name {
+  font-family: 'Josefin Sans', sans-serif;
 }
 #bs-overrides #right-float {
   float:right;
 }
-#bs-overrides #left-float {
-  font-family: 'Josefin Sans', sans-serif;
-  float:left;
-}
-.muted {
-  color: rgb(165, 165, 165)
+.section-title {
+  color: rgb(165, 165, 165);
+  font-style: italic;
 }
 </style>
