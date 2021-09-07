@@ -5,25 +5,25 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <router-link to="/hello">
+        <router-link :to="`${this.$route.params.username}/workouts`">
         <li class="nav-item active">
           <a class="nav-link" href="#">Workouts</a>
         </li>
         </router-link>
 
-        <router-link :to="`${this.$route}/mealplans`">
+        <router-link :to="`${this.$route.params.username}/mealplans`">
           <li class="nav-item">
-            <a class="nav-link" :href="`${this.route}/mealplans`">Meal Plans</a>
+            <a class="nav-link" href="">Meal Plans</a>
           </li>
         </router-link>
 
-        <router-link to="/hello">
+        <router-link :to="`${this.$route.params.username}/merch`">
           <li class="nav-item">
             <a class="nav-link" href="#">Merch</a>
           </li>
         </router-link>     
 
-        <router-link to="/hello">
+        <router-link :to="`${this.$route.params.username}/blog`">
           <li class="nav-item">
             <a class="nav-link" href="#">Blog</a>
           </li>

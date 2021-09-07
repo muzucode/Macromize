@@ -71,6 +71,16 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/LeaveAReview.vue')
   },
   {
+    path: '/users/:username/mealplans',
+    name: 'Meal Plans',
+    component: () => import(/* webpackChunkName: "about" */ '../views/MealPlans.vue')
+  },
+  {
+    path: '/users/:username/workouts',
+    name: 'Workouts',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Workouts.vue')
+  },
+  {
     path: '/edit-profile',
     name: 'Edit Profile',
     component: () => import(/* webpackChunkName: "about" */ '../views/EditProfile.vue')
