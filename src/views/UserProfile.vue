@@ -24,7 +24,7 @@
 
 
     <!-- Profile card -->
-    <MainCard v-if="finishedLoading">
+    <MainCard v-if="finishedLoading"  @updatenow="updateResourceSection">
 
       <!-- Edit profile link -->
       <div v-if="currentProfileEqualsCurrentAuthUser" class="row">
@@ -40,13 +40,10 @@
         </div>
       </div>
 
-      <!-- User subheading -->
-      <MutedSectionHeading>
-        User
-      </MutedSectionHeading>
+      <hr>
 
       <!-- AVATAR AND BIO ROW -->
-      <div class="row my-2">
+      <div class="row mt-4">
         <!-- AVATAR -->
         <div class="col-3">
           <img class="float-start border border-secondary" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQWaOvEdKR6pRsnqWLvk7e8Up5cn92iG8-XwV7IgDelbAp-Bf-7gbvIP8-LqVgDaCuYhZg&usqp=CAU" />
@@ -65,9 +62,13 @@
       </div>
     </div>
 
-    <!-- Resources Preview -->
-    <ResourcePreview @updatenow="updateResourceSection(value)">{{resourcePreviewTitle}}</ResourcePreview>
-      
+    <!-- Resource Preview -->
+    <ResourcePreviewTitle>{{resourcePreviewTitle}}</ResourcePreviewTitle>
+    <RPMMealPlans v-if="isVisible_mealplans === true">meal plans</RPMMealPlans>
+    <RPMWorkouts v-if="isVisible_workouts === true">workouts</RPMWorkouts>
+    <RPMMerch v-if="isVisible_merch === true">merch</RPMMerch>
+    <RPMBlog v-if="isVisible_blog === true">blog</RPMBlog>
+    
     </MainCard>
 
   </div>
@@ -81,7 +82,11 @@ import AmplifyAPIService from '../services/AmplifyAPIService.js';
 import AmplifyAuthService from '../services/AmplifyAuthService.js';
 import UserProfileNav from '../components/UserProfileNav.vue';
 import MutedSectionHeading from '../components/UserProfile/MutedSectionHeading.vue';
-import ResourcePreview from '../components/UserProfile/ResourcePreview.vue';
+import ResourcePreviewTitle from '../components/UserProfile/ResourcePreviewTitle.vue';
+import RPMMealPlans from '../components/UserProfile/RPMMealPlans.vue';
+import RPMWorkouts from '../components/UserProfile/RPMWorkouts.vue';
+import RPMMerch from '../components/UserProfile/RPMMerch.vue';
+import RPMBlog from '../components/UserProfile/RPMBlog.vue';
 
 
 export default {
@@ -92,7 +97,8 @@ export default {
     LogoSubheading,
     UserProfileNav,
     MutedSectionHeading,
-    ResourcePreview
+    ResourcePreviewTitle,
+    RPMMealPlans, RPMWorkouts, RPMMerch, RPMBlog
   },
   data: function () {
     return {
@@ -100,7 +106,11 @@ export default {
       finishedLoading: false,
       username: this.$route.params.username,
       currentProfileEqualsCurrentAuthUser: Boolean,
-      resourcePreviewTitle: 'Red'
+      resourcePreviewTitle: '',
+      isVisible_workouts : false,
+      isVisible_mealplans : false,
+      isVisible_merch : false,
+      isVisible_blog : false
     }
   },
   methods: {
@@ -129,17 +139,44 @@ export default {
         }
       })
       .catch(err => {
+        console.error('Current authenticated user is not the current User Profile');
         console.error(err);
       })
 
       return response;
     },
     updateResourceSection: function (value) {
-      console.log('second test');
-      this.resourcePreviewTitle = value;
+      console.log('made it in here');
+      this.resourcePreviewTitle = value + ':';
+      this.updateRPM(value);
+    },
+    updateRPM: function (value) {
+      console.log('made it in here UPDATE RPM');
+
+        // Reset all visibilities to invisible when updated
+        this.isVisible_workouts = false;
+        this.isVisible_mealplans = false;
+        this.isVisible_merch = false;
+        this.isVisible_blog = false;
+
+
+      // Get emitted value then load the corresponding module
+      switch (value) {
+        case 'Workouts':
+          this.isVisible_workouts = true;
+          break;
+        case 'Meal Plans':
+          this.isVisible_mealplans = true;
+          break;
+        case 'Merch':
+          this.isVisible_merch = true;
+          break;
+        case 'Blog':
+          this.isVisible_blog = true;
+          break;
+          }
     }
   },
-
   created: async function(){
     // Get user with query string = URL params username
     const response = this.getUserByUsername(this.$route.params.username)

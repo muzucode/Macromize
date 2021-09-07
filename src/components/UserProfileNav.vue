@@ -5,28 +5,23 @@
     <div class="collapse navbar-collapse justify-content-start" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
 
-        <router-link :to="`${this.$route.params.username}/mealplans`">
-          <li @click="this.$emit('updatenow', 'yesttttt')" class="nav-item active">
-            <a class="nav-link" href="#">Workouts</a>
+          <!-- Each option emits the data to be previewed -->
+          <li @click="this.$parent.$emit('updatenow', 'Workouts')" class="nav-item active">
+            <a class="nav-link">Workouts</a>
           </li>
-        </router-link>
-        <router-link :to="`${this.$route.params.username}/mealplans`">
-          <li class="nav-item">
-            <a class="nav-link" href="">Meal Plans</a>
-          </li>
-        </router-link>
 
-        <router-link :to="`${this.$route.params.username}/merch`">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Merch</a>
+          <li class="nav-item" @click="this.$parent.$emit('updatenow', 'Meal Plans')">
+            <a class="nav-link">Meal Plans</a>
           </li>
-        </router-link>     
 
-        <router-link :to="`${this.$route.params.username}/blog`">
-          <li class="nav-item">
-            <a class="nav-link" href="#">Blog</a>
+          <li class="nav-item" @click="this.$parent.$emit('updatenow', 'Merch')">
+            <a class="nav-link">Merch</a>
           </li>
-        </router-link>     
+
+          <li class="nav-item" @click="this.$parent.$emit('updatenow', 'Blog')">
+            <a class="nav-link">Blog</a>
+          </li>
+  
 
         
       </ul>
@@ -46,6 +41,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+a:hover {
+  cursor:pointer;
+}
 </style>

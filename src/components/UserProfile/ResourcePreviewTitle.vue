@@ -9,7 +9,7 @@
 
 <script>
 export default {
-  name: 'Resource Preview',
+  name: 'Resource Preview Title',
   data: function () {
     return {
       sectionTitle: ''
@@ -23,9 +23,13 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 .section-title {
   color: rgb(165, 165, 165);
   font-style: italic;
+}
+h1 {
+  font-family: 'Josefin Sans', sans-serif;
 }
 </style>
