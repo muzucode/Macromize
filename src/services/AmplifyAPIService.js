@@ -4,6 +4,14 @@ const apiName = 'PomegranateAPI';
 
 class AmplifyAPIService {
 
+  // getUserWorkouts(query) {
+  //   const response = API.get(apiName,'/users/workouts', {
+  //     'queryStringParameters': {
+  //       'username': query
+  //     }
+  //   })
+  // }
+
   getUserByUsername(query){
     // if does exist, save info
     // if doesn't exist, show DOES NOT EXIST

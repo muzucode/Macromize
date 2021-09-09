@@ -87,6 +87,7 @@ import RPMMealPlans from '../components/UserProfile/RPMMealPlans.vue';
 import RPMWorkouts from '../components/UserProfile/RPMWorkouts.vue';
 import RPMMerch from '../components/UserProfile/RPMMerch.vue';
 import RPMBlog from '../components/UserProfile/RPMBlog.vue';
+// import WorkoutFactory from '../services/Workout/WorkoutFactory.js';
 
 
 export default {
@@ -146,12 +147,14 @@ export default {
       return response;
     },
     updateResourceSection: function (value) {
-      console.log('made it in here');
+      // Update RPM title
+      console.log('RPM Title updated');
       this.resourcePreviewTitle = value + ':';
       this.updateRPM(value);
     },
     updateRPM: function (value) {
-      console.log('made it in here UPDATE RPM');
+      // Update RPM
+      console.log('RPM Updated');
 
         // Reset all visibilities to invisible when updated
         this.isVisible_workouts = false;
@@ -163,6 +166,8 @@ export default {
       // Get emitted value then load the corresponding module
       switch (value) {
         case 'Workouts':
+          // Query database for workouts
+          this.loadWorkouts(this.$route.params.username);
           this.isVisible_workouts = true;
           break;
         case 'Meal Plans':
@@ -175,7 +180,19 @@ export default {
           this.isVisible_blog = true;
           break;
           }
-    }
+    },
+    // loadWorkouts: function (username) {
+    //   // Get array of workouts from database
+    //   const response = WorkoutFactory.getWorkoutsFromDynamoDB(username)
+    //   .then(res => {
+    //     console.log(res);
+    //     return res;
+    //   })
+    //   .catch(err => {
+    //     console.error(err);
+    //   });
+    
+    // }
   },
   created: async function(){
     // Get user with query string = URL params username

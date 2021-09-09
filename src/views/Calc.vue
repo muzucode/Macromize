@@ -137,8 +137,7 @@
 import MainCard from '../components/MainCard.vue';
 import SectionTitle from '../components/SectionTitle.vue';
 import MealPlan from '../services/MealPlan/MealPlan.js';
-import Workout from '../services/Workout/Workout.js'; 
-import Resource from '../services/Resource/Resource.js'; 
+// import Workout from '../services/Workout/Workout.js'; 
 import LogoHeading from '../components/LogoHeading.vue';
 import LogoSubheading from '../components/LogoSubheading.vue';
 // import CardItemCollection from '../components/CardItemCollection.vue';
@@ -276,77 +275,6 @@ export default {
         this.mealPlans = mealPlans.bulk;
       } else {
         this.mealPlans = mealPlans.maint;
-      }
-    },
-    loadWorkoutPlans () {
-      var cutPlans = [
-        new Workout('Ultimate Cutting Meal Plan', 'One of the highest rated cutting meal plans out there', 5,''),
-        new Workout('Total Health Cutting Program', 'Our in-house bulking meal plan', 5,''),
-        new Workout('Obelisk Meal Plan (Cut)', 'For the truly devoted', 5,'')
-      ];
-
-      var bulkPlans = [
-        new Workout('Ultimate Cutting Meal Plan', 'One of the highest rated cutting meal plans out there', 5,''),
-        new Workout('Total Health Cutting Program', 'Our in-house bulking meal plan', 5,''),
-        new Workout('Obelisk Meal Plan (Cut)', 'For the truly devoted', 5,'')
-      ];
-
-      var maintPlans = [
-        new Workout('Ultimate Cutting Meal Plan', 'One of the highest rated cutting meal plans out there', 5,''),
-        new Workout('Total Health Cutting Program', 'Our in-house bulking meal plan', 5,''),
-        new Workout('Obelisk Meal Plan (Cut)', 'For the truly devoted', 5,'')
-      ];  
-
-      // Set workoutPlans object
-      var workoutPlans = {
-        cut: cutPlans,
-        bulk: bulkPlans,
-        maint: maintPlans
-      };
-
-      // Load workout plans based on goal
-      if(this.goal_str.includes('Cutting')){
-        this.workoutPlans = workoutPlans.cut;
-      } else if(this.goal_str.includes('Bulking')){
-        this.workoutPlans = workoutPlans.bulk;
-      } else {
-        this.workoutPlans = workoutPlans.maint;
-      }
-
-    },
-    loadResources() {
-      var cutResources = [
-        new Resource('Ultimate Cutting Meal Plan', 'One of the highest rated cutting meal plans out there', 5,''),
-        new Resource('Total Health Cutting Program', 'Our in-house bulking meal plan', 5,''),
-        new Resource('Obelisk Meal Plan (Cut)', 'For the truly devoted', 5,'')
-      ];
-
-      var bulkResources = [
-        new Resource('Ultimate Cutting Meal Plan', 'One of the highest rated cutting meal plans out there', 5,''),
-        new Resource('Total Health Cutting Program', 'Our in-house bulking meal plan', 5,''),
-        new Resource('Obelisk Meal Plan (Cut)', 'For the truly devoted', 5,'')
-      ];
-
-      var maintResources = [
-        new Resource('Ultimate Cutting Meal Plan', 'One of the highest rated cutting meal plans out there', 5,''),
-        new Resource('Total Health Cutting Program', 'Our in-house bulking meal plan', 5,''),
-        new Resource('Obelisk Meal Plan (Cut)', 'For the truly devoted', 5,'')
-      ];  
-
-      // Set workoutPlans object
-      var resources = {
-        cut: cutResources,
-        bulk: bulkResources,
-        maint: maintResources
-      };
-
-      // Load workout plans based on goal
-      if(this.goal_str.includes('Cutting')){
-        this.resources = resources.cut;
-      } else if(this.goal_str.includes('Bulking')){
-        this.resources = resources.bulk;
-      } else {
-        this.resources = resources.maint;
       }
     },
     makeVis() {

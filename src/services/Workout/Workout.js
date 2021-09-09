@@ -1,10 +1,11 @@
 class Workout {
 
-  constructor(title, subtitle, rating, link) {
-    this.title = title;
-    this.subtitle = subtitle;
-    this.rating = rating;
-    this.link = link;
+  constructor(workoutId, title, description, exercises, nativeUsername) {
+    this.workoutId = workoutId; // String
+    this.title = title; // String
+    this.description = description; // String
+    this.exercises = exercises; // Array
+    this.nativeUsername = nativeUsername; // String
   }
 
 }
