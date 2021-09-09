@@ -10,7 +10,6 @@
 
     <MainCard>
 
-      <button @click="setInfo">update info</button>
       <!-- Personal -->
       <EditProfileSection>
         <template v-slot:title>Personal</template>
