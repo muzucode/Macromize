@@ -52,7 +52,7 @@
             <div class="row">
               <div class="col">
                 <div class="float-start">
-                  <router-link to="yooo" tag="button"><button id="btn-addOne" class="btn btn-primary">Add workout +</button></router-link>
+                  <router-link to="create-workout" tag="button"><button id="btn-addOne" class="btn btn-primary">Add workout +</button></router-link>
                 </div>
               </div>
             </div>

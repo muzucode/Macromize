@@ -84,6 +84,11 @@ const routes = [
     path: '/edit-profile',
     name: 'Edit Profile',
     component: () => import(/* webpackChunkName: "about" */ '../views/EditProfile.vue')
+  },
+  {
+    path: '/create-workout',
+    name: 'Create Workout',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CreateWorkout/CreateWorkout.vue')
   }
 ]
 
