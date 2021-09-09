@@ -1,3 +1,5 @@
+import AmplifyAPIService from '../AmplifyAPIService.js';
+
 class Workout {
 
   constructor(workoutId, title, description, exercises, nativeUsername) {
@@ -7,6 +9,8 @@ class Workout {
     this.exercises = exercises; // Array
     this.nativeUsername = nativeUsername; // String
   }
+
+
 
 }
 

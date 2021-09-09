@@ -112,7 +112,7 @@ export default {
       isVisible_mealplans : false,
       isVisible_merch : false,
       isVisible_blog : false,
-      workoutsInRPM : []
+      workouts : []
     }
   },
   methods: {
@@ -194,7 +194,7 @@ export default {
       });
     
       // Set workouts in RPM = # of workouts in DB response
-      this.workoutsInRPM = response.length;
+      this.workouts = response;
 
 
     }

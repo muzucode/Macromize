@@ -9,6 +9,8 @@ class Exercise {
     this.weights = weights;
   }
 
+  
+
 }
 
 export default Exercise;
