@@ -87,7 +87,7 @@ import RPMMealPlans from '../components/UserProfile/RPMMealPlans.vue';
 import RPMWorkouts from '../components/UserProfile/RPMWorkouts.vue';
 import RPMMerch from '../components/UserProfile/RPMMerch.vue';
 import RPMBlog from '../components/UserProfile/RPMBlog.vue';
-// import WorkoutFactory from '../services/Workout/WorkoutFactory.js';
+import WorkoutFactory from '../services/Workout/WorkoutFactory.js';
 
 
 export default {
@@ -111,7 +111,8 @@ export default {
       isVisible_workouts : false,
       isVisible_mealplans : false,
       isVisible_merch : false,
-      isVisible_blog : false
+      isVisible_blog : false,
+      workoutsInRPM : []
     }
   },
   methods: {
@@ -181,18 +182,22 @@ export default {
           break;
           }
     },
-    // loadWorkouts: function (username) {
-    //   // Get array of workouts from database
-    //   const response = WorkoutFactory.getWorkoutsFromDynamoDB(username)
-    //   .then(res => {
-    //     console.log(res);
-    //     return res;
-    //   })
-    //   .catch(err => {
-    //     console.error(err);
-    //   });
+    loadWorkouts: function (username) {
+      // Get array of workouts from database
+      const response = WorkoutFactory.getWorkouts(username)
+      .then(res => {
+        console.log(res);
+        return res;
+      })
+      .catch(err => {
+        console.error(err);
+      });
     
-    // }
+      // Set workouts in RPM = # of workouts in DB response
+      this.workoutsInRPM = response.length;
+
+
+    }
   },
   created: async function(){
     // Get user with query string = URL params username
