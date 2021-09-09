@@ -4,12 +4,13 @@
       Edit Profile
     </LogoHeading>
 
-    <LogoSubheading>
+    <LogoSubheading v-if="currentUser">
       {{currentUser.username}}
     </LogoSubheading>
 
     <MainCard>
 
+      <button @click="setInfo">update info</button>
       <!-- Personal -->
       <EditProfileSection>
         <template v-slot:title>Personal</template>
@@ -182,22 +183,22 @@ export default {
   },
   methods: {
     setInfo: async function () {
-      const response = await AmplifyAuthService.currentAuthenticatedUser()
-      .then(res => {
-        console.log(res);
-        console.log(res.username);
-        return res;
-      });
 
-      return await response
-    },
-    authenticatedUser: function () {
-      console.log(AmplifyAuthService.currentSession());
-      return AmplifyAuthService.currentSession();
+    // Set currentUser info
+    try {
+      const data = await AmplifyAuthService.currentAuthenticatedUser();
+      this.currentUser = data;
+      return data;
+    } catch (err) {
+      return console.log(err);
+    }
+
+
     },
     getUserByUsername: function (query) {
       const response = AmplifyAPIService.getUserByUsername(query)
       .then(res => {
+        console.log(res);
         return res;
       });
 
@@ -214,9 +215,9 @@ export default {
     EditProfileSection,
     LogoSubheading
   },
-  created: async function(){
-
-    this.currentUser = await this.getUserByUsername('nerox');
+  created: function(){
+    
+    this.setInfo();
     this.getWorkouts();
   }
 }

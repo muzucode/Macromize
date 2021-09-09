@@ -80,11 +80,12 @@ class AmplifyAuthService {
   }
 
   async currentAuthenticatedUser(){
-    return Auth.currentAuthenticatedUser()
-    .then(data => {
+    try {
+      const data = await Auth.currentAuthenticatedUser();
       return data;
-    })
-    .catch(err => console.log(err));
+    } catch (err) {
+      return console.log(err);
+    }
   }
 
   async forgotPassword(username) {
