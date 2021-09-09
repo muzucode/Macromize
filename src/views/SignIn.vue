@@ -64,7 +64,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   button {
     font-family: 'Staatliches', cursive;
   }

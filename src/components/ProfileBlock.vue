@@ -4,9 +4,8 @@
     <form>
       <div class="form-group">
         <label for="formGroupExampleInput"><slot></slot></label>
-        <input type="text" class="form-control my-2" id="formGroupExampleInput" placeholder="none">
+        <input type="text" class="form-control my-2" id="formGroupExampleInput" placeholder="Type here...">
       </div>
-
     </form>
   </div>
 </template>
@@ -14,7 +13,6 @@
 <script>
 export default {
   name: 'Profile Block',
-  props: ['placeholders']
 }
 </script>
 
@@ -23,8 +21,5 @@ export default {
 
 label {
   font-family: 'Staatliches', cursive;
-}
-::-webkit-input-placeholder {
-  font-family: 'Architects Daughter', cursive;
 }
 </style>
