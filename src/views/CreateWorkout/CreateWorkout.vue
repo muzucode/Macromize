@@ -26,8 +26,9 @@
       <!-- Exercises -->
       <SectionEx v-for="ex in workout.exercises" :key="ex">
         <template v-slot:title>Exercise {{ex.order + 1}}: {{ex.title}}</template>
-        <template v-slot:label-rm><label @click="removeExercise(ex.order)" class="float-start text-danger">Remove</label></template>
-        <template v-slot:label-edit><label @click="selectExercise(ex.order)" class="float-start text-success">Edit</label></template>
+        <!-- If there is only one exercise, then do not show the remove option -->
+        <template v-if="workout.exercises.length != 1" v-slot:btn-rm><button @click="removeExercise(ex.order)" class="float-start text-white btn-sm btn-danger">Remove</button></template>
+        <template v-slot:btn-edit><button @click="selectExercise(ex.order)" class="float-start text-white btn-sm btn-success">Edit</button></template>
         <template v-slot:body>
 
           <!-- Exercise name -->
@@ -48,56 +49,62 @@
         <template v-slot:sets>
           
           <!-- Sets -->
-          <!-- If the edit feature is selected for the exercise-->
+
+          <div class="row">
+            <div class="col">
+              <label class="mb-2 float-start">Sets - (Sets of Reps @ Weight in lbs.)</label>
+            </div>
+          </div>
+
+          <!-- Load each set in the exercise -->
+          <div v-for="set in ex.sets" :key="set" class="row">
+            <div class="col">
+              <!-- Display all sets for exercise -->
+              <label class="mb-2 float-start">Set {{set.order + 1}}: {{set.frequency}}x{{set.reps}} ({{set.weight}}lbs.)</label>
+            </div>
+          </div>
+        
+          <!-- Add set toolbar + button container -->
+          <!-- If the edit feature is selected for the exercise, show sets -->
           <div v-if="ex.isSelected === true">
             <div class="row">
-              <div class="col">
-                <label class="mb-2 float-start">Sets</label>
-              </div>
-            </div>
-
-            <div class="row">
               <div class="col-3">
-                <select class="form-control float-start mb-4">
-                  <option>1x</option>
-                  <option>2x</option>
-                  <option>3x</option>
-                  <option>4x</option>
+                <select v-model="staging_set.frequency" class="form-control float-start mb-4">
+                  <option :value="1">1x</option>
+                  <option :value="2">2x</option>
+                  <option :value="3">3x</option>
+                  <option :value="4">4x</option>
                 </select>
               </div>
               of
               <div class="col-3">
-                <select class="form-control float-start mb-4">
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                  <option>14</option>
-                  <option>15</option>
+                <select v-model="staging_set.reps" class="form-control float-start mb-4">
+                  <option :value="10">10</option>
+                  <option :value="11">11</option>
+                  <option :value="12">12</option>
+                  <option :value="13">13</option>
+                  <option :value="14">14</option>
+                  <option :value="15">15</option>
                 </select>
               </div>
               @
               <div class="col-3">
-                <input placeholder="15 lbs." class="form-control float-start mb-4"/>
+                <input v-model="staging_set.weight" placeholder="15" class="form-control float-start mb-4"/>
               </div>
             </div>
         
             <div class="row">
               <div class="col">
-                <button @click="addSet" class="btn btn-primary float-start">Add set +</button>
+                <!-- Add set, send exercise number over -->
+                <button @click="addSet(ex.order)" class="btn btn-primary float-start">Add set +</button>
               </div>
             </div>
           </div>
+
         </template>
       </SectionEx>
 
-
-
-
-
-
       <button class="btn btn-danger" @click="addExercise">Add exercise</button>
-
 
     </MainCard>
   </div>
@@ -129,18 +136,50 @@ export default {
             order: 0,
             title: '',
             category: '',
-            isSelected: false
-          },        
+            isSelected: false,
+            sets: [
+              // Acts as a placeholder to define schema on create
+              {
+                order: 0,
+                frequency: 0,
+                reps: 0,
+                weight: 0,
+                time: 0,
+                time_type: '', // either seconds or minutes
+                set_type: '' // either reps or time
+              }
+            ]
+          }        
         ]
       },
+      staging_set: {
+        order: 0,
+        frequency: 0,
+        reps: 0,
+        weight: 0,
+        time: 0,
+        time_type: '', // either seconds or minutes
+        set_type: '' // either reps or time
+
+      }
     }
   },
   methods: {
     addExercise: function () {
+      // Create placeholder exercise
+      var exercise = {
+        order: 0, 
+        title: '', 
+        category: '', 
+        isSelected: false, 
+        sets: []
+      }
       // Add exercise, with order 0
-      this.workout.exercises.push({order: 0, title: 'added exercise'});
+      this.workout.exercises.push(exercise);
       // Update exercise orders 1-20
-      this.updateExerciseOrders();
+      const lastExerciseNumber = this.updateExerciseOrders();
+      // Close any 'sets' toolbars and select the most recently added exercise
+      this.selectExercise(lastExerciseNumber);
     },
     removeExercise: function (orderNum) {
       // Remove workout by order number
@@ -149,10 +188,15 @@ export default {
       console.log('trying to remove');
     },
     selectExercise: function (orderNum) {
-      // Reset all selected states
-      this.workout.exercises.forEach((el) => el.isSelected = false)
-      // Set selected state of chosen exercise
-      this.workout.exercises[orderNum].isSelected = true;
+      // If already selected, then deselect
+      if(this.workout.exercises[orderNum].isSelected === true){
+        this.workout.exercises[orderNum].isSelected = false;
+      } else {
+        // Reset all selected states
+        this.workout.exercises.forEach((el) => el.isSelected = false)
+        // Set selected state of chosen exercise
+        this.workout.exercises[orderNum].isSelected = true;
+      }
     },
     updateExerciseOrders: function () {
       // Set the orders of all exercises
@@ -160,16 +204,67 @@ export default {
       this.workout.exercises.forEach(el => {
         el.order = i;
         i++;
-      })
+      });
       
+      // Return the number of iterations minus 1
+      // This number is the amount of exercises, minus 1
+      // It gives the index of the final exercise in the workout
+      return i-1;
+
     },
-    addSet: function () {
-      console.log('set has been added');
+    addSet: function (orderNum) {
+
+      // Stage the set using the v-models then push it
+      var set = this.stageSet();
+      
+      // Console testing
+      console.log(orderNum);
+      console.log(this.workout.exercises[orderNum]);
+
+      // Add set to exercise sent over
+      this.workout.exercises[orderNum].sets.push(set);
+
+      // Update set orders 1-20
+      this.updateSetOrders(orderNum);
+
+
+    },
+    stageSet: function () {
+      // Create set = to the staged set from v-models
+      const set = {
+        order: 0, 
+        frequency: this.staging_set.frequency, 
+        reps: this.staging_set.reps, 
+        weight: this.staging_set.weight, 
+        time: 0, 
+        time_type: '', 
+        set_type: ''
+      };
+
+      return set;
+    },
+    updateSetOrders: function (orderNum) {
+      // Set the orders of all sets
+      var i = 0;
+      this.workout.exercises[orderNum].sets.forEach(el => {
+        el.order = i;
+        i++;
+      });
+
+    },
+    removeFirstExerciseInitialSet: function () {
+      // Removes the inital set that comes with exercise 1
+      this.workout.exercises[0].sets = [];
     }
   },
   created: function () {
     // Update exercise orders
     this.updateExerciseOrders();
+    // Select exercise 0 at start
+    this.selectExercise(0);
+    // Remove the initial set from the workout after create
+    this.removeFirstExerciseInitialSet();
+
   }
 }
 

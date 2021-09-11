@@ -9,11 +9,11 @@
 
     <!-- Title row -->
     <div class="row">
-      <div class="col-1">
-        <slot name="label-rm"></slot>
+     <div class="col-1 button-font">
+        <slot name="btn-edit"></slot>
       </div>
-      <div class="col-1">
-        <label class="float-start text-success"><slot name="label-edit"></slot></label>
+      <div class="col-1 button-font">
+        <slot name="btn-rm"></slot>
       </div>
     </div>
 
@@ -45,6 +45,9 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 h1 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+.button-font {
   font-family: 'Josefin Sans', sans-serif;
 }
 </style>
