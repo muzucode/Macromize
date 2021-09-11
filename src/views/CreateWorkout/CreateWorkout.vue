@@ -26,6 +26,8 @@
       <!-- Exercises -->
       <SectionEx v-for="ex in workout.exercises" :key="ex">
         <template v-slot:title>Exercise {{ex.order + 1}}: {{ex.title}}</template>
+        <template v-slot:label-rm><label @click="removeExercise(ex.order)" class="float-start text-danger">Remove</label></template>
+        <template v-slot:label-edit><label @click="selectExercise(ex.order)" class="float-start text-success">Edit</label></template>
         <template v-slot:body>
 
           <!-- Exercise name -->
@@ -42,47 +44,59 @@
             <option>Shoulders</option>
           </select>
         </template>
+
+        <template v-slot:sets>
+          
+          <!-- Sets -->
+          <!-- If the edit feature is selected for the exercise-->
+          <div v-if="ex.isSelected === true">
+            <div class="row">
+              <div class="col">
+                <label class="mb-2 float-start">Sets</label>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-3">
+                <select class="form-control float-start mb-4">
+                  <option>1x</option>
+                  <option>2x</option>
+                  <option>3x</option>
+                  <option>4x</option>
+                </select>
+              </div>
+              of
+              <div class="col-3">
+                <select class="form-control float-start mb-4">
+                  <option>10</option>
+                  <option>11</option>
+                  <option>12</option>
+                  <option>13</option>
+                  <option>14</option>
+                  <option>15</option>
+                </select>
+              </div>
+              @
+              <div class="col-3">
+                <input placeholder="15 lbs." class="form-control float-start mb-4"/>
+              </div>
+            </div>
+        
+            <div class="row">
+              <div class="col">
+                <button @click="addSet" class="btn btn-primary float-start">Add set +</button>
+              </div>
+            </div>
+          </div>
+        </template>
       </SectionEx>
 
-      <!-- Sets -->
-      <div class="row">
-        <div class="col">
-          <label class="mb-2 float-start">Sets</label>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-3">
-          <select class="form-control float-start mb-4">
-            <option>1x</option>
-            <option>2x</option>
-            <option>3x</option>
-            <option>4x</option>
-          </select>
-        </div>
-        of
-        <div class="col-3">
-          <select class="form-control float-start mb-4">
-            <option>10</option>
-            <option>11</option>
-            <option>12</option>
-            <option>13</option>
-            <option>14</option>
-            <option>15</option>
-          </select>
-        </div>
-        @
-        <div class="col-3">
-          <input placeholder="15 lbs." class="form-control float-start mb-4"/>
-        </div>
-      </div>
-  
 
 
 
 
-      <button @click="addExercise">Add exercise</button>
-      <button @click="addSet">Add set</button>
+
+      <button class="btn btn-danger" @click="addExercise">Add exercise</button>
 
 
     </MainCard>
@@ -114,7 +128,8 @@ export default {
           {
             order: 0,
             title: '',
-            category: ''
+            category: '',
+            isSelected: false
           },        
         ]
       },
@@ -122,14 +137,25 @@ export default {
   },
   methods: {
     addExercise: function () {
-      // Add exercise
-      this.workout.exercises.push({order: 3, title: 'added exercise'});
-      // Update exercise orders
+      // Add exercise, with order 0
+      this.workout.exercises.push({order: 0, title: 'added exercise'});
+      // Update exercise orders 1-20
       this.updateExerciseOrders();
     },
+    removeExercise: function (orderNum) {
+      // Remove workout by order number
+      this.workout.exercises.splice(orderNum, 1);
+      this.updateExerciseOrders();
+      console.log('trying to remove');
+    },
+    selectExercise: function (orderNum) {
+      // Reset all selected states
+      this.workout.exercises.forEach((el) => el.isSelected = false)
+      // Set selected state of chosen exercise
+      this.workout.exercises[orderNum].isSelected = true;
+    },
     updateExerciseOrders: function () {
-      // Update the order of all exercises
-
+      // Set the orders of all exercises
       var i = 0;
       this.workout.exercises.forEach(el => {
         el.order = i;

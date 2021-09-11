@@ -1,9 +1,19 @@
 <template>
-  <div>
+  <div class="mb-5">
     <!-- Title row -->
     <div class="row">
       <div class="col">
         <h1 class="float-start"><slot name="title"></slot></h1>
+      </div>
+    </div>
+
+    <!-- Title row -->
+    <div class="row">
+      <div class="col-1">
+        <slot name="label-rm"></slot>
+      </div>
+      <div class="col-1">
+        <label class="float-start text-success"><slot name="label-edit"></slot></label>
       </div>
     </div>
 
@@ -13,6 +23,12 @@
     <div class="row">
       <div class="col">
         <slot name="body"></slot>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col">
+        <slot name="sets"></slot>
       </div>
     </div>
 
