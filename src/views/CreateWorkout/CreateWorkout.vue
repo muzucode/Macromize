@@ -50,17 +50,22 @@
           
           <!-- Sets -->
 
-          <div class="row">
+          <div class="row mb-2 ">
             <div class="col">
-              <label class="mb-2 float-start">Sets - (Sets of Reps @ Weight in lbs.)</label>
+              <h4 class="float-start">Sets - (Sets of Reps @ Weight in Lbs. or Kg)</h4>
             </div>
           </div>
 
           <!-- Load each set in the exercise -->
-          <div v-for="set in ex.sets" :key="set" class="row">
+          <div v-for="set in ex.sets" :key="set" class="row mb-2">
             <div class="col">
               <!-- Display all sets for exercise -->
-              <label class="mb-2 float-start">Set {{set.order + 1}}: {{set.frequency}}x{{set.reps}} ({{set.weight}}lbs.)</label>
+              <h7 class="float-start set-entry">Set {{set.order + 1}}: {{set.frequency}} x {{set.reps}} ({{set.weight}} {{set.unit_type}}) </h7>
+              <!-- Remove set button -->
+              <p class="float-start">
+                &nbsp;&nbsp; <a class="rmv-set" @click="removeSet(ex, set)"><b>X</b></a>
+              </p>
+
             </div>
           </div>
         
@@ -68,28 +73,54 @@
           <!-- If the edit feature is selected for the exercise, show sets -->
           <div v-if="ex.isSelected === true">
             <div class="row">
-              <div class="col-3">
-                <select v-model="staging_set.frequency" class="form-control float-start mb-4">
+              <div class="col-1">
+                <select v-model="staging_set.frequency" class="form-select float-start mb-4">
                   <option :value="1">1x</option>
                   <option :value="2">2x</option>
                   <option :value="3">3x</option>
-                  <option :value="4">4x</option>
+                  <option :value="4">4x</option>                  
+                  <option :value="5">5x</option>
+                  <option :value="6">6x</option>
+                  <option :value="7">7x</option>
+                  <option :value="8">8x</option>                  
+                  <option :value="9">9x</option>
+                  <option :value="10">10x</option>
                 </select>
               </div>
               of
-              <div class="col-3">
-                <select v-model="staging_set.reps" class="form-control float-start mb-4">
+              <div class="col-1">
+                <select v-model="staging_set.reps" class="form-select float-start mb-4">
+                  <option :value="1">1</option>
+                  <option :value="2">2</option>
+                  <option :value="3">3</option>
+                  <option :value="4">4</option>
+                  <option :value="5">5</option>
+                  <option :value="6">6</option>
+                  <option :value="7">7</option>
+                  <option :value="8">8</option>
+                  <option :value="9">9</option>
                   <option :value="10">10</option>
                   <option :value="11">11</option>
                   <option :value="12">12</option>
                   <option :value="13">13</option>
                   <option :value="14">14</option>
                   <option :value="15">15</option>
+
                 </select>
               </div>
               @
-              <div class="col-3">
+              <!-- Weight -->
+              <div class="col-2">
                 <input v-model="staging_set.weight" placeholder="15" class="form-control float-start mb-4"/>
+              </div>
+              <!-- Weight Type -->
+              <div class="col-1">
+                <select v-model="staging_set.unit_type" placeholder="15" class="form-select float-start mb-4">
+                  <option selected value="Lbs">Lbs</option>
+                  <option value="Kg">Kg</option>                
+                  <option value="Min">Min</option>                
+                  <option value="Hrs">Hrs</option>                
+                </select>
               </div>
             </div>
         
@@ -144,6 +175,7 @@ export default {
                 frequency: 0,
                 reps: 0,
                 weight: 0,
+                unit_type: '',
                 time: 0,
                 time_type: '', // either seconds or minutes
                 set_type: '' // either reps or time
@@ -157,6 +189,7 @@ export default {
         frequency: 0,
         reps: 0,
         weight: 0,
+        unit_type: '',
         time: 0,
         time_type: '', // either seconds or minutes
         set_type: '' // either reps or time
@@ -185,7 +218,6 @@ export default {
       // Remove workout by order number
       this.workout.exercises.splice(orderNum, 1);
       this.updateExerciseOrders();
-      console.log('trying to remove');
     },
     selectExercise: function (orderNum) {
       // If already selected, then deselect
@@ -236,12 +268,19 @@ export default {
         frequency: this.staging_set.frequency, 
         reps: this.staging_set.reps, 
         weight: this.staging_set.weight, 
-        time: 0, 
-        time_type: '', 
-        set_type: ''
+        unit_type: this.staging_set.unit_type,
+        time: 0, // todo input
+        time_type: '', // todo input
+        set_type: '' // todo input
       };
 
       return set;
+    },
+    removeSet: function (exercise, set,) {
+      // Receive exercise, splice out the set to be removed from its sets
+      // Then update the orders of all the sets
+      exercise.sets.splice(set.order, 1);
+      this.updateSetOrders(exercise.order);
     },
     updateSetOrders: function (orderNum) {
       // Set the orders of all sets
@@ -271,8 +310,21 @@ export default {
 //
 </script>
 
-<style>
+<style scoped>
 label {
   font-family: 'Staatliches', cursive;
+}
+h4 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+.set-entry {
+  font-family: 'Josefin Sans', sans-serif;
+}
+.rmv-set {
+  color: rgb(194, 70, 70);
+  text-decoration: none;
+}
+.rmv-set:hover {
+  cursor: pointer;
 }
 </style>

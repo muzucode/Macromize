@@ -8,6 +8,7 @@
     <router-link v-if="loggedIn === false" to="/SignIn">Sign In</router-link><span v-if="loggedIn === false">  |</span>
     <router-link @click="signOut" v-if="loggedIn === true" to="/SignOut">Sign Out</router-link><span v-if="loggedIn === true"></span>
   </div>
+  <!-- Second EH listens for when someone logs in to update global username -->
   <router-view @logInEvent="updateLoginState()" @logInUsernameUpdateEvent="updateMyProfileState()"/>
 </div>
 </template>

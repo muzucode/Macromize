@@ -1,4 +1,4 @@
-<template  >
+<template>
   <div class="container-lg">
 
     <!-- Logo heading -->
@@ -215,12 +215,13 @@ export default {
     .catch(err => {
       console.error(err);
     });
-    // Set user profile info equal to DB response
+
+    // Set user profile info equal to DB response, populate page in HTML
     this.userProfileInfo = await response;
 
     // Check if user profile belongs to current user (for displaying edit profile feature)
     this.currentProfileEqualsCurrentAuthUser = await this.userProfileIsCurrentUser();
-  }
+  },
 }
 </script>
 
