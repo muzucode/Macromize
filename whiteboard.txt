@@ -1,0 +1,27 @@
+WORKOUT SCHEMA
+-----------------------
+  workout: {
+    name: '',
+    description: '',
+    exercises: [
+      {
+        order: 0,
+        title: '',
+        category: '',
+        isSelected: false,
+        sets: [
+          // Acts as a placeholder to define schema on create
+          {
+            order: 0,
+            frequency: 0,
+            reps: 0,
+            weight: 0,
+            unit_type: '',
+            time: 0,
+            time_type: '', // either seconds or minutes
+            set_type: '' // either reps or time
+          }
+        ]
+      }        
+    ]
+  },

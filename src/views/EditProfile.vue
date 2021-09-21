@@ -52,7 +52,18 @@
             <div class="row">
               <div class="col">
                 <div class="float-start">
-                  <router-link to="create-workout" tag="button"><button id="btn-addOne" class="btn btn-primary">Add workout +</button></router-link>
+                  <router-link 
+                    to="create-workout" 
+                    tag="button"
+                  >
+                    <button 
+                      id="btn-addOne" 
+                      class="btn btn-primary"
+                      @click="scrollToTop()"
+                    >
+                    Add workout +
+                    </button>
+                  </router-link>
                 </div>
               </div>
             </div>
@@ -205,6 +216,10 @@ export default {
     },
     getWorkouts: function () {
       this.workouts = [];
+    },
+    scrollToTop() {
+      // Scroll to top of the screen
+        window.scrollTo(0,0);
     }
   },
   components: {

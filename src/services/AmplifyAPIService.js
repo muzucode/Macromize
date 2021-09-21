@@ -1,6 +1,8 @@
 /* eslint-disable */
 import {API} from 'aws-amplify';
+import AmplifyAuthService from './AmplifyAuthService.js';
 const apiName = 'PomegranateAPI';
+import { v4 as uuidv4 } from 'uuid';
 
 class AmplifyAPIService {
 
@@ -59,6 +61,19 @@ class AmplifyAPIService {
    return response;
   }
 
+  async postWorkout(workout) {
+    // Assign the workout an ID before posting
+    workout.workoutId = await AmplifyAuthService.getCurrentUserId();
+
+    console.log(await workout);
+    
+    const response = await API.post(apiName,'/workouts/add', {body: workout});
+
+    console.log(await response);
+
+    return response;
+  }
+
   testReq(){
     const response = API.post(apiName,'/users/add', {
       
@@ -90,71 +105,6 @@ class AmplifyAPIService {
    return response
   }
 
-  getWorks(){
-    const response = API.get(apiName, '/works')
-    .then(res => {
-      // Add your code here
-      console.log(res);
-    })
-    .catch(error => {
-      console.log(error.response);
-    });
-
-    return response
-  }
-
-  postWork(){
-    const response = API.post(apiName, '/works/generate')
-    .then(res => {
-      // Add your code here
-      console.log('yo');
-      console.log(res);
-    })
-    .catch(error => {
-      console.log(error.response);
-   });
-
-   return response
-  }
-
-  generateWork(){
-    const response = API.get(apiName, '/works/generate')
-    .then(res => {
-      // Add your code here
-      console.log(res);
-    })
-    .catch(error => {
-      console.log(error.response);
-   });
-
-   return response
-  }  
-  
-  generateItem(){
-    const response = API.get(apiName, '/items/generate')
-    .then(res => {
-      // Add your code here
-      console.log(res);
-    })
-    .catch(error => {
-      console.log(error.response);
-   });
-
-   return response
-  }
-
-  loadWork(){
-    const response = API.get(apiName, '/items/load')
-    .then(res => {
-      // Add your code here
-      console.log(res);
-    })
-    .catch(error => {
-      console.log(error.response);
-   });
-
-   return response
-  }
 }
 
 

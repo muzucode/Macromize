@@ -136,6 +136,8 @@
       </SectionEx>
 
       <button class="btn btn-danger" @click="addExercise">Add exercise</button>
+      <button class="btn btn-success" @click="publishWorkout">Publish workout</button>
+
 
     </MainCard>
   </div>
@@ -148,6 +150,8 @@ import LogoHeading from '../../components/LogoHeading.vue';
 import LogoSubheading from '../../components/LogoSubheading.vue';
 import SectionA from '../../components/SectionA.vue';
 import SectionEx from '../../components/SectionEx.vue';
+import AmplifyAPIService from '../../services/AmplifyAPIService';
+
 export default {
   name: 'Create Workout',
   components: {
@@ -294,6 +298,9 @@ export default {
     removeFirstExerciseInitialSet: function () {
       // Removes the inital set that comes with exercise 1
       this.workout.exercises[0].sets = [];
+    },
+    publishWorkout: function () {
+      AmplifyAPIService.postWorkout(this.workout);
     }
   },
   created: function () {
@@ -307,7 +314,7 @@ export default {
   }
 }
 
-//
+
 </script>
 
 <style scoped>

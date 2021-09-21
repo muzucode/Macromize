@@ -101,6 +101,12 @@ class AmplifyAuthService {
       .then(data => console.log(data))
       .catch(err => console.log(err));
   }
+
+  async getCurrentUserId () {
+    const { attributes } = await Auth.currentAuthenticatedUser();
+    // return current user Id
+    return await attributes.sub;
+  }
   
 }
 
